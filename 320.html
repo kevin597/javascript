@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<style>
+#div3 {
+	width:440px; margin:20px auto;
+	background-color:#CCC; height:190px;
+	position:relative; overflow:hidden;}
+#div3>ul { position:absolute; left:0; top:0;
+	background-color:#999; padding:0; margin:0;
+}
+ul li { width:110px; height:170px; padding:0; margin:10px 0; float:left; list-style-type:none; background-color:#FFC; box-sizing:border-box; border:1px solid #CCC; text-align:center; line-height:170px; font-size:20px;}
+</style>
+<script>
+window.onload=function(){
+	
+	//无缝滚动
+	var odiv = document.getElementById('div3');
+	var oul = document.getElementById('ul');
+	var oli = document.getElementsByTagName('li');
+	oul.innerHTML+=oul.innerHTML;
+	var oulw = oli[0].offsetWidth*oli.length;
+	oul.style.width=oulw+'px';
+	
+	function show(){
+		if (oul.offsetLeft+oulw/2==0){
+			oul.style.left=0;
+		}else{
+			oul.style.left=oul.offsetLeft-2+'px';
+		}
+	}
+	var otime=setInterval(show,30);
+	
+	oul.onmouseover = function(){
+		clearInterval(otime);
+	}
+	oul.onmouseout = function(){
+		otime=setInterval(show,30);
+	}
+	//console.log(-oulw/2);
+}
+</script>
+</head>
+
+<body>
+<div id="div3">
+<ul id="ul">
+<li>1</li>
+<li>2</li>
+<li>3</li>
+<li>4</li>
+</ul>
+</div>
+</body>
+</html>

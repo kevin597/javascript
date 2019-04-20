@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<style>
+#tabs div { width:500px; height:200px; border:1px solid #999; margin:10px 0; display:none;}
+ul,li {
+	margin:0; padding:0; list-style-type:none; overflow:hidden;}
+	li { width:100px; height:30px; float:left; background-color:#CCC; text-align:center; line-height:30px; margin-right:2px;}
+	li.active { background-color:#FFC;}
+</style>
+<script>
+var tabs_div_s=null;
+var tabs_li=null;
+
+window.onload=function(){
+	new tabswitch('tabs');
+	
+	
+	
+	// 过滤
+	var otext1 = document.getElementById('text1');
+	var otext2 = document.getElementById('text2');
+	var obtn4 = document.getElementById('btn4');
+	
+	obtn4.onclick=function(){
+		var re=/<.[^<>]+>/g;
+		otext2.value=otext1.value.replace(re,'');	
+	}
+	
+}
+function tabswitch(id){
+// 选项卡
+	 var _this=this;
+	 var tabs_div = document.getElementById(id);
+	 this.tabs_div_s = tabs_div.getElementsByTagName('div');
+	 this.tabs_li = tabs_div.getElementsByTagName('li');
+	 this.tabs_div_s[0].style.display='block';
+	 this.tabs_li[0].className='active';
+	 
+	 for (var i=0;i<this.tabs_li.length;i++){
+		 this.tabs_li[i].index=i;
+		 this.tabs_li[i].onclick=function(){
+			 _this.fnclick(this);
+			 }
+	 }
+}
+
+tabswitch.prototype.fnclick=function (tabs_li){
+			 for (var i=0;i<this.tabs_li.length;i++){
+				this.tabs_li[i].className='';
+				this.tabs_div_s[i].style.display='none'; 
+			}
+			 tabs_li.className='active';
+			 this.tabs_div_s[tabs_li.index].style.display='block';
+			 }
+			 
+			 
+			 
+			 
+			 
+function setCookie(cname,cvalue,exdays){
+	var d=new Date();
+	//d.setTime(d.getTime()+(exdays*24*60*60*1000));
+	d.setDate(d.getDate()+exdays)
+	var expires="expires="+d;
+	document.cookie=cname+'='+cvalue+';'+expires;
+}
+
+//setCookie('username','zourongle',7)
+
+console.log(document.cookie);
+
+function getCookie(cname){
+	var name=cname+"=";
+	var ca =document.cookie.split(';');
+	for (var i=0; i<ca.length;i++){
+		var c=ca[i].trim();
+		if (c.indexOf(name)==0) {
+		return c.substring(name.length,c.length);	
+		}
+	}
+	return "";
+}
+
+function save(){
+	var otxt = document.getElementById('txt2');
+	setCookie('user',otxt.value,7);
+}
+
+console.log(getCookie('user'));
+</script>
+</head>
+
+<body>
+<div id="tabs">
+<ul>
+<li>按钮1</li>
+<li>按钮2</li>
+<li>按钮3</li>
+<li>按钮4</li>
+</ul>
+
+<div>111111111111</div>
+<div>2222222222</div>
+<div>33333333333</div>
+<div>44444444444</div>
+</div>
+
+
+<input type="text" id="txt2" />
+<input type="submit" id="btn2" onclick="save()" />
+
+<p></p>
+
+<textarea name="a" cols="40" rows="8" id="text1"></textarea>
+<input id="btn4" type="button" value="过滤HTML">
+<textarea name="a" cols="40" rows="8" id="text2"></textarea>
+</body>
+</html>

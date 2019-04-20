@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<style>
+#tabs div { width:500px; height:200px; border:1px solid #999; margin:10px 0; display:none;}
+ul,li {
+	margin:0; padding:0; list-style-type:none; overflow:hidden;}
+	li { width:100px; height:30px; float:left; background-color:#CCC; text-align:center; line-height:30px; margin-right:2px;}
+	li.active { background-color:#FFC;}
+	
+	#rili ul { width:162px; overflow:hidden; overflow:hidden;}
+	
+	#rili ul li {
+		width:50px; height:50px; line-height:50px; float:left; margin:2px; box-sizing:border-box;}
+		
+		#div2 { width:200px; height:200px; background:#F00;}
+
+</style>
+<script>
+window.onload=function(){
+	var oint=document.getElementsByTagName("input");
+	var obtn=document.getElementById('btn');
+	
+	// 全选
+	obtn.onclick=function(){
+		for(var i=0;i<oint.length;i++){
+			if (oint[i].checked==true){
+				oint[i].checked=false
+				}else{
+					oint[i].checked=true;
+					}
+		
+		}
+		}
+	
+	
+	// 选项卡
+	 var tabs_div = document.getElementById('tabs');
+	 var tabs_div_s = tabs_div.getElementsByTagName('div');
+	 tabs_div_s[0].style.display='block';
+	 var tabs_li = tabs_div.getElementsByTagName('li');
+	 tabs_li[0].className='active';
+	 
+	 for (var i=0;i<tabs_li.length;i++){
+		 tabs_li[i].index=i;
+		 tabs_li[i].onclick=function(){
+			 for (var i=0;i<tabs_li.length;i++){
+				tabs_li[i].className='';
+				tabs_div_s[i].style.display='none'; 
+			}
+			 this.className='active';
+			 tabs_div_s[this.index].style.display='block';
+			 }
+		
+	 }
+	 
+	 
+	 // 日历日记
+	 var arr=[
+	 "sfsfdsfdsfdfdsfdsf1",
+	 "sfsfdsfdsfdfdsfdsf2",
+	 "sfsfdsfdsfdfdsfdsf3",
+	 "sfsfdsfdsfdfdsfdsf4",
+	 "sfsfdsfdsfdfdsfdsf5",
+	 "sfsfdsfdsfdfdsfdsf6",
+	 "sfsfdsfdsfdfdsfdsf7",
+	 "sfsfdsfdsfdfdsfdsf8",
+	 "sfsfdsfdsfdfdsfdsf9",
+	 "sfsfdsfdsfdfdsfdsf10",
+	 "sfsfdsfdsfdfdsfdsf11",
+	 "sfsfdsfdsfdfdsfdsf12"
+	 ];
+	 var odiv=document.getElementById('rili');
+	 var oli=odiv.getElementsByTagName('li');
+	 var otxt=odiv.getElementsByTagName('div');
+	 var txt=document.getElementById('txt');
+	 
+	 for(var i=0;i<oli.length;i++){
+		 oli[i].index=i;
+		oli[i].onmouseover=function(){
+			 for(var j=0;j<oli.length;j++){
+				 oli[j].className='';
+				 }
+				 this.className='active';
+				 txt.innerHTML='<h2>'+(this.index+1)+'月活动</h2><p>'+arr[this.index]+'</p>';
+			}
+			
+	 }
+	 
+	 
+	 
+	 var odiv=document.getElementById('div2');
+	 css(odiv,'width','300px');
+	 
+}
+
+// 2个参数获取，3个参数设置
+function css(obj,name,value){
+	if (arguments.length==2){
+		return obj.style[name];	
+	}else{
+		return obj.style[name]=value;
+	}
+}
+</script>
+</head>
+
+<body>
+<form name="form1" method="post" action="">
+<input value="选中" type="button" id="btn">
+  <p>
+    <label>
+      <input name="CheckboxGroup1" type="checkbox" id="CheckboxGroup1_0" value="复选框">
+      复选框</label>
+    <br>
+    <label>
+      <input type="checkbox" name="CheckboxGroup1" value="复选框" id="CheckboxGroup1_1">
+      复选框</label>
+    <br>
+  </p>
+</form>
+<div id="tabs">
+<ul>
+<li>按钮1</li>
+<li>按钮2</li>
+<li>按钮3</li>
+<li>按钮4</li>
+</ul>
+
+<div>111111111111</div>
+<div>2222222222</div>
+<div>33333333333</div>
+<div>44444444444</div>
+</div>
+
+<div id="rili">
+<ul>
+<li>1月</li>
+<li>2月</li>
+<li>3月</li>
+<li>4月</li>
+<li>5月</li>
+<li>6月</li>
+<li>7月</li>
+<li>8月</li>
+<li>9月</li>
+<li>10月</li>
+<li>11月</li>
+<li>12月</li>
+</ul>
+
+<div id="txt">
+<h2>1</h2><p>2</p>
+</div>
+</div>
+
+
+<div id="div2"></div>
+</body>
+</html>

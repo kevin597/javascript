@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<style>
+div { width:150px; height:150px; background-color:#ccc; }
+#div2 { display:none;}
+#div3 { width:50px; height:50px; position:absolute; bottom:50px; left:50px;}
+</style>
+<script>
+window.onload = function(){
+	var odiv = document.getElementById('div1');
+	
+	odiv.onmouseover = function(){
+		startMove(odiv, 'width', 300, function(){
+			startMove(odiv, 'height', 300);
+			});
+	}
+	odiv.onmouseout = function(){
+		startMove(odiv, 'height', 150, function(){
+			startMove(odiv, 'width', 150);
+			})
+	}
+	
+	
+	var odiv2 = document.getElementById('div2');
+	var obtn2 = document.getElementById('btn2');
+	
+	obtn2.onclick = function(ev){
+		var oevent = ev || event;
+		oevent.stopPropagation();
+		//oevent.cancelBubble=true;
+		odiv2.style.display='block'; 	
+	}
+	odiv2.onclick = function(ev){
+		var oevent = ev || event;
+		oevent.cancelBubble=true;
+	}
+	document.onclick = function(){
+		odiv2.style.display='none';	
+	}
+	
+	
+	
+	// 键盘
+	var otxt=document.getElementById('txt4');
+	var otext4=document.getElementById('text4');
+	otxt.onkeydown=function(ev){
+		var oevent=ev||event;
+		if(oevent.keyCode!=8 && oevent.keyCode!=13 && (oevent.keyCode<48 || oevent.keyCode>57)){
+			return false;
+		}else if (oevent.keyCode==13){
+			if(otxt.value.length>0){
+				otext4.value=otext4.value+otxt.value+'\n';
+				otxt.value='';	
+			}
+		}
+	}
+	
+}
+
+var times=null;
+function startMove(obj,name,value,fnend){
+	clearInterval(times);
+		times=setInterval(function(){
+			var owid = parseInt(getstyle(obj,name))
+			var speed =  0;
+			if (owid>value){
+				speed = -5;
+			}else{
+				speed = 5;	
+			}
+			if (owid==value){
+				clearInterval(times);
+				if(fnend)fnend();
+			}else{
+				obj.style[name]=owid+speed+'px';
+			}
+		},30);
+}
+
+function getstyle(obj,name){
+	//console.log(obj);
+	if(obj.currentStyle){
+		return obj.currentStyle[name];
+	}else{
+		return getComputedStyle(obj,null)[name];
+	}
+}
+
+
+
+
+// 键盘
+document.onkeydown=function(ev){
+	var oevent=ev||event;
+	var odiv3=document.getElementById('div3');
+	//console.log(oevent.keyCode);
+	if(oevent.keyCode==37){
+		odiv3.style.left=odiv3.offsetLeft-10+'px';
+	}else if(oevent.keyCode==38){
+		odiv3.style.top=odiv3.offsetTop-10+'px';
+	}else if(oevent.keyCode==39){
+		odiv3.style.left=odiv3.offsetLeft+10+'px';
+	}else if(oevent.keyCode==40){
+		odiv3.style.top=odiv3.offsetTop+10+'px';
+	}
+}
+
+
+</script>
+</head>
+
+<body>
+<div id="div1"></div>
+
+<input type="button" id="btn2" value="展开" />
+<div id="div2"></div>
+
+<div id="div3"></div>
+
+<p></p>
+<input type="text" id="txt4">
+<p></p>
+<textarea name="" id="text4" cols="40" rows="10"></textarea>
+</body>
+</html>

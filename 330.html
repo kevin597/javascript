@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<style>
+body { font-size:14px; margin:0; overflow:hidden;}
+input { height:30px; line-height:30px; width:60px; box-sizing:border-box; border-radius:2px; border:1px solid #CCC;}
+input[type="text"] { width:200px;}
+ul,li { padding:0; margin:0; list-style-type:none; margin:20px;}
+li { display:block; overflow:hidden; margin:5px; padding:5px; width:300px; border-bottom:1px dotted #CCCCCC;}
+li span,
+li a { display:block; float:left;}
+li a { text-decoration:none; color:#333;}
+li span { width:50px; }
+
+#div1 { width:150px; height:200px; position:absolute; background-color:#CCC; left:-150px;}
+#div1 span { width:20px; line-height:20px; position:absolute; right:-20px; top:0; background-color:#666; text-align:center;}
+</style>
+<script>
+window.onload = function() {
+	var oTxt = document.getElementById('text');
+	var oBtn = document.getElementById('btn');
+	var oBpx = document.getElementById('paixu');
+	var oUl1 = document.getElementById('ul1');
+	var oLi1 = oUl1.getElementsByTagName('li');
+	
+	// 排序
+	oBpx.onclick = function(){
+		var aArr=[];
+		for(var i=0;i<oLi1.length;i++){
+			aArr[i]=oLi1[i];
+		}
+		aArr.sort(function(li1,li2){
+			var n1=parseInt(li1.getElementsByTagName('span')[0].innerHTML);
+			var n2=parseInt(li2.getElementsByTagName('span')[0].innerHTML);
+			return n1-n2;
+		});
+		for(var x=0;x<aArr.length;x++){
+			oUl1.appendChild(aArr[x]);	
+		}
+	}
+	
+	// 搜索
+	oBtn.onclick = function(){
+		for (var j=0; j<oLi1.length; j++){
+			var aTxt = oLi1[j].getElementsByTagName('a')[0].innerHTML.toLowerCase();
+			if (aTxt.search(oTxt.value.toLowerCase())>=0){
+				oLi1[j].style.display='black';
+			}else{
+				oLi1[j].style.display='none';
+			}
+		}	
+	}
+	
+	
+	// 分享
+	var odiv1 = document.getElementById('div1');
+	odiv1.onmouseover = function(){
+		startMove(odiv1,10,0);
+	}
+	odiv1.onmouseout = function(){
+		startMove(odiv1,-10,-150);
+	}
+	
+	
+	
+}
+
+var times=null;
+function startMove(obj,speed,target){
+	clearInterval(times);
+		times=setInterval(function(){
+			if (obj.offsetLeft==target){
+				clearInterval(times);
+			}else{
+				obj.style.left=obj.offsetLeft+speed+'px';
+			}
+		},30);
+}
+</script>
+</head>
+
+<body>
+<input name="text" type="text" id="text" />
+<input id="btn" type="button" value="搜索">
+<input id="paixu" type="button" value="排序">
+<ul id="ul1">
+<li><span>1</span><a href="javascript:;">张扣扣案二审宣判</a></li>
+<li><span>5</span><a href="javascript:;">判决书有317处笔误</a></li>
+<li><span>8</span><a href="javascript:;">美国复联4票价</a></li>
+<li><span>2</span><a href="javascript:;">奔驰成立专门小组</a></li>
+<li><span>4</span><a href="javascript:;">蔡徐坤粉丝退B站</a></li>
+<li><span>10</span><a href="javascript:;">养老金2035将耗尽</a></li>
+<li><span>9</span><a href="javascript:;">京东回应员工自杀</a></li>
+<li><span>13</span><a href="javascript:;">视觉中国再次致歉</a></li>
+<li><span>6</span><a href="javascript:;">京东将向总监开刀</a></li>
+</ul>
+
+<div id="div1">
+	<span>分享</span>
+</div>
+
+
+</body>
+</html>

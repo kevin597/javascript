@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<style>
+body {
+	background-color:#F6F6F6;}
+	
+ul {
+	height:190px; overflow:hidden;
+	margin:0; padding:0; list-style-type:none;}
+li { width:110px; height:170px; margin:10px; padding:0; list-style-type:none; display:inline-block; background-color:#FFC; overflow:hidden; box-sizing:border-box;}
+.img0,.img1,.img2,.img3,.img4,.img5,.img6,.img7,.img8,.img9 {background-image:url(timg.jpeg);
+	background-repeat:no-repeat;
+	}
+.img0 {background-position:0 0;}
+.img1 {background-position:-130px 0;}
+.img2 {background-position:-269px 0;}
+.img3 {background-position:-392px 0;}
+.img4 {background-position:-500px 0;}
+
+.img5 {background-position:0 -226px;}
+.img6 {background-position:-130px -226px;}
+.img7 {background-position:-269px -226px;}
+.img8 {background-position:-392px -226px;}
+.img9 {background-position:-500px -226px;}
+
+#div1,#div2 { float:left; margin:5px; border-radius:4px;}
+#div1 { width:60px; height:60px; background-color:#F00;}
+#div2 { width:200px; height:100px; background-color:#CCC; display:none;}
+#div { overflow:hidden;}
+#div22 { overflow:hidden;}
+#div3 {
+	overflow:hidden;
+	width:532px; margin:20px auto;
+	background-color:#CCC; height:190px;
+	position:relative;}
+#div3>ul { position:absolute; left:0; top:0;
+	background-color:#999;
+}
+div { display:block;}
+</style>
+<script>
+function toTou(n){
+	if (n<10) {
+		return '0'+n;
+	}else{
+		return ''+n;
+	}
+}
+window.onload=function(){
+	
+	//时钟
+	var odiv = document.getElementById('div');
+	var oli = odiv.getElementsByTagName('li');
+	
+	function start(){
+		var odate=new Date();
+		var str=toTou(odate.getHours())+toTou(odate.getMinutes())+toTou(odate.getSeconds())
+		for(var i=0; i<oli.length;i++){
+		oli[i].className='img'+str[i];
+		}
+	}
+	setInterval(start,1000);
+	start();
+	
+	
+	//延时隐藏
+	var odiv1 = document.getElementById('div1');
+	var odiv2 = document.getElementById('div2');
+	var otime = '';
+	
+	odiv2.onmouseover=odiv1.onmouseover=function(){
+		clearTimeout(otime);
+		odiv2.style.display='block';
+	}
+	odiv2.onmouseout=odiv1.onmouseout=function(){
+		otime=setTimeout(function(){
+			odiv2.style.display='none';	
+		},500)
+	}
+	
+	
+	//添加删除LI
+	var odiv4 = document.getElementById('div4');
+	var oul4 = document.getElementById('ul');
+	var obtn4 = document.getElementById('btn1');
+	var otxt4 = document.getElementById('txt1');
+	
+	obtn4.onclick = function(){
+		
+		var oli = document.createElement('li');
+		var sa = '<a href="javascript:;">删除</a>';
+		oli.innerHTML = otxt4.value+sa;
+		var oli2 = oul4.getElementsByTagName('li');
+		var oa4 = odiv4.getElementsByTagName('a');
+		if (oli2.length>0){
+			oul4.insertBefore(oli,oli2[0]);
+		}else{
+			oul4.appendChild(oli);
+		}
+		otxt4.value='';
+		for (var j=0 ;j<oa4.length;j++){
+			oa4[j].onclick= function (){
+				oul4.removeChild(this.parentNode);
+			}
+		}
+	}
+	
+	
+	
+}
+</script>
+</head>
+
+<body>
+<div id="div">
+<ul>
+<li></li>
+<li></li>:
+<li></li>
+<li></li>:
+<li></li>
+<li></li>
+</ul>
+</div>
+
+<div id="div22">
+<div id="div1"></div>
+<div id="div2"></div>
+</div>
+
+
+<div id="div4">
+<input id="txt1" type="text">
+<input id="btn1" type="button" value="添加">
+<ul id="ul"></ul>
+</div>
+
+
+</body>
+</html>
